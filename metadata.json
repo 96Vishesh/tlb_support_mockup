@@ -1,0 +1,7 @@
+{
+  "name": "The Little Broadway - Support & Account Deletion",
+  "description": "Interactive prototype for The Little Broadway website featuring the new Support navbar link and dedicated account deletion request page.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
+
