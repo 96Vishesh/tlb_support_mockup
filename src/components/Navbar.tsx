@@ -28,27 +28,30 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
   const isSupportActive = currentPath === '/support' || currentPath === '/delete-account';
 
   return (
-    <header className="sticky top-0 z-40 bg-[#0F1013]/95 backdrop-blur-md border-b border-[#343434]/70 transition-all">
+    <header className="sticky top-0 z-40 bg-tlb-charcoal transition-all">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex items-center justify-between h-20 gap-4">
+        <div className="flex items-center justify-between h-[72px] gap-4">
           {/* Brand Logo Zone */}
-          <div className="shrink-0">
+          <div className="shrink-0 self-start">
             <TLBLogo onClick={() => handleLinkClick('/')} />
           </div>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden xl:flex items-center gap-5 2xl:gap-6 text-[13px] font-medium tracking-wide">
-            {existingNavLinks.map((link) => (
+          <nav className="hidden xl:flex items-center gap-7 text-sm font-medium">
+            {existingNavLinks.map((link, index) => (
               <button
                 key={link.label}
                 type="button"
                 onClick={() => handleLinkClick(link.path)}
-                className={`whitespace-nowrap transition-colors duration-150 py-1 ${
-                  currentPath === link.path
+                className={`whitespace-nowrap transition-colors duration-150 py-1 inline-flex items-center gap-1.5 ${
+                  index === 0
+                    ? 'text-tlb-yellow'
+                    : currentPath === link.path
                     ? 'text-white font-semibold'
-                    : 'text-[#C5C5C7] hover:text-white'
+                    : 'text-white hover:text-tlb-yellow'
                 }`}
               >
+                {index === 0 && <span className="w-1.5 h-1.5 rounded-full bg-tlb-yellow" />}
                 {link.label}
               </button>
             ))}
@@ -60,17 +63,17 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
                 onClick={() => handleLinkClick('/support')}
                 className={`group relative whitespace-nowrap px-2.5 py-1 transition-colors duration-150 rounded ${
                   isSupportActive
-                    ? 'text-[#F5A623] font-semibold'
-                    : 'text-[#C5C5C7] hover:text-[#F5A623]'
+                    ? 'text-tlb-yellow font-semibold'
+                    : 'text-white hover:text-tlb-yellow'
                 }`}
               >
                 <span>Support</span>
                 {/* Active indicator bar */}
                 {isSupportActive && (
-                  <span className="absolute -bottom-2 left-2.5 right-2.5 h-[2px] bg-[#F5A623] rounded-full" />
+                  <span className="absolute -bottom-2 left-2.5 right-2.5 h-[2px] bg-tlb-yellow rounded-full" />
                 )}
                 {/* Subtle "New" marker for prototype preview */}
-                <span className="ml-1.5 text-[9px] uppercase tracking-wider text-[#F5A623] bg-[#F5A623]/10 border border-[#F5A623]/30 px-1 py-0.2 rounded font-mono">
+                <span className="ml-1.5 text-[9px] uppercase tracking-wider text-tlb-yellow bg-tlb-yellow/10 border border-tlb-yellow/30 px-1 py-0.2 rounded font-mono">
                   New
                 </span>
               </button>
@@ -83,9 +86,10 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPath, onNavigate }) => {
             <button
               type="button"
               onClick={() => handleLinkClick('/#connect')}
-              className="hidden sm:inline-flex items-center justify-center px-5 py-2.5 text-xs font-semibold tracking-wider uppercase rounded-full bg-[#F5A623] text-[#111215] hover:bg-[#e5981a] active:scale-[0.98] transition-all duration-150 shadow-sm"
+              className="hidden sm:inline-flex items-center justify-center gap-1 px-5 py-2.5 text-sm font-semibold rounded-full bg-tlb-yellow text-black hover:bg-tlb-yellow-hover active:scale-[0.98] transition-all duration-150"
             >
-              Let&apos;s Connect
+              <span>Let&apos;s Connect</span>
+              <ArrowUpRight className="w-3 h-3" />
             </button>
 
             {/* Mobile Hamburger Toggle Button */}

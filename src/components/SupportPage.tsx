@@ -7,8 +7,6 @@ interface SupportPageProps {
 }
 
 export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate }) => {
-  // Allow toggling between Dark Editorial (default) and Warm Ivory Panel (matching screenshot)
-  const [styleVariant, setStyleVariant] = useState<'dark' | 'ivory'>('dark');
   const [isDraftModalOpen, setIsDraftModalOpen] = useState(false);
   const [copiedEmail, setCopiedEmail] = useState(false);
 
@@ -56,7 +54,7 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate }) => {
       description: (
         <>
           Use the subject line{' '}
-          <span className="font-medium italic text-[#F5A623]">
+          <span className="font-medium italic text-[#C47D14]">
             &ldquo;{emailSubject}&rdquo;
           </span>{' '}
           and clearly state that you want your account and associated personal data deleted.
@@ -70,165 +68,96 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate }) => {
     },
   ];
 
+  const containerClass = 'max-w-4xl mx-auto px-4 sm:px-6 lg:px-8';
+
   return (
-    <div className="min-h-screen bg-[#0F1013] text-[#D0D0D0] py-10 sm:py-16">
-      {/* Container */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-        
-        {/* Visual Direction Switcher (Client Review Feature) */}
-        <div className="mb-8 p-3 rounded-xl bg-[#141519] border border-[#2B2C32] flex flex-col sm:flex-row items-center justify-between gap-3 text-xs">
-          <div className="flex items-center gap-2">
-            <span className="w-2 h-2 rounded-full bg-[#F5A623]" />
-            <span className="font-medium text-white">Client Design Review Direction:</span>
-            <span className="text-[#8E8E93]">
-              {styleVariant === 'dark' ? 'Dark Editorial (Homepage Style)' : 'Warm Ivory Panel (What We Do Style)'}
-            </span>
+    <div className="min-h-screen">
+      {/* BAND 1 (charcoal): Page Introduction */}
+      <section className="bg-tlb-charcoal text-tlb-text-muted pt-16 pb-20 sm:pt-24 sm:pb-28">
+        <div className={containerClass}>
+          <div className="flex items-center gap-3 mb-6 text-[11px] uppercase font-bold tracking-[0.25em] text-white/90">
+            <span>For Account</span>
+            <span className="w-1 h-1 rounded-full bg-tlb-yellow" />
+            <span>For Privacy</span>
+            <span className="w-1 h-1 rounded-full bg-tlb-yellow" />
+            <span>For You</span>
           </div>
-
-          <div className="flex items-center bg-[#0F1013] p-1 rounded-lg border border-[#2B2C32]">
-            <button
-              type="button"
-              onClick={() => setStyleVariant('dark')}
-              className={`px-3 py-1.5 rounded-md font-medium transition-all ${
-                styleVariant === 'dark'
-                  ? 'bg-[#26272C] text-white shadow-sm font-semibold'
-                  : 'text-[#8E8E93] hover:text-white'
-              }`}
-            >
-              Dark Editorial
-            </button>
-            <button
-              type="button"
-              onClick={() => setStyleVariant('ivory')}
-              className={`px-3 py-1.5 rounded-md font-medium transition-all ${
-                styleVariant === 'ivory'
-                  ? 'bg-[#F8F4EC] text-[#191919] shadow-sm font-semibold'
-                  : 'text-[#8E8E93] hover:text-white'
-              }`}
-            >
-              Warm Ivory Panel
-            </button>
-          </div>
-        </div>
-
-        {/* SECTION 1: Page Introduction */}
-        <section className="mb-12">
-          {/* Small uppercase amber label */}
-          <div className="inline-block mb-3">
-            <span className="text-xs uppercase font-semibold tracking-[0.2em] text-[#F5A623]">
-              SUPPORT
-            </span>
-          </div>
-
-          {/* Main Heading with "Help." in TLB amber */}
-          <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-bold text-white tracking-tight leading-tight mb-4">
-            We&apos;re Here to <span className="text-[#F5A623]">Help.</span>
+          <h1 className="font-serif text-5xl sm:text-6xl lg:text-7xl font-bold text-white tracking-tight leading-[1.05] mb-6">
+            We&apos;re Here to <span className="text-tlb-yellow">Help.</span>
           </h1>
-
-          {/* Supporting Text */}
-          <p className="text-base sm:text-lg text-[#D0D0D0] max-w-2xl leading-relaxed">
+          <p className="text-base sm:text-lg text-tlb-text-muted max-w-xl leading-relaxed mb-9">
             Need help with your TLB account? Find the information you need to request account and personal data deletion below.
           </p>
-        </section>
+          <div className="flex flex-wrap gap-3">
+            <button
+              type="button"
+              onClick={() => onNavigate('/delete-account')}
+              className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold rounded-full bg-tlb-yellow text-black hover:bg-tlb-yellow-hover transition-colors shadow-[0_0_24px_rgba(247,181,0,0.25)]"
+            >
+              <span>Request Deletion</span>
+              <ArrowRight className="w-4 h-4" />
+            </button>
+            <a
+              href={mailtoUrl}
+              className="inline-flex items-center gap-2 px-7 py-3.5 text-sm font-semibold rounded-full border border-white/30 text-white hover:border-white transition-colors"
+            >
+              <span>Contact Support</span>
+              <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+        </div>
+      </section>
 
-        {/* SECTION 2 & 3: Account Deletion & How to Request Deletion */}
-        {styleVariant === 'dark' ? (
-          /* DARK EDITORIAL STYLE (Matches TLB Homepage reference) */
-          <div className="bg-[#111215] border border-[#343434] rounded-2xl p-6 sm:p-10 mb-10 transition-all shadow-xl">
-            {/* Section 2 Heading */}
-            <div className="pb-6 border-b border-[#26272C]">
-              <span className="text-xs uppercase font-semibold tracking-[0.2em] text-[#F5A623] block mb-2">
-                ACCOUNT ASSISTANCE
-              </span>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-white mb-3">
-                Delete Your Account
-              </h2>
-              <p className="text-sm sm:text-base text-[#B8B8BD] leading-relaxed">
-                If you would like to delete your account and associated personal data from The Little Broadway app, you can submit a deletion request to our support team.
-              </p>
-            </div>
+      {/* BAND 2 (ivory): Delete Your Account & How to Request */}
+      <section className="bg-tlb-ivory text-tlb-text-dark py-14 sm:py-16">
+        <div className={containerClass}>
+          <div className="pb-6 border-b border-tlb-border-light">
+            <span className="text-xs uppercase font-semibold tracking-[0.2em] text-[#C47D14] block mb-2">
+              ACCOUNT ASSISTANCE
+            </span>
+            <h2 className="font-serif text-2xl sm:text-3xl font-bold text-tlb-text-dark mb-3">
+              Delete Your Account
+            </h2>
+            <p className="text-sm sm:text-base text-[#4A4A4F] leading-relaxed">
+              If you would like to delete your account and associated personal data from The Little Broadway app, you can submit a deletion request to our support team.
+            </p>
+          </div>
 
-            {/* Section 3: How to Request Deletion */}
-            <div className="pt-8">
-              <h3 className="text-xs uppercase font-semibold tracking-[0.18em] text-[#A0A0A5] mb-6">
-                How to Submit a Deletion Request
-              </h3>
+          <div className="pt-8">
+            <h3 className="text-xs uppercase font-semibold tracking-[0.18em] text-[#7A7A80] mb-6">
+              How to Submit a Deletion Request
+            </h3>
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-                {steps.map((step) => (
-                  <div
-                    key={step.number}
-                    className="flex items-start gap-4 p-4 rounded-xl bg-[#16171C] border border-[#2A2B31] transition-colors"
-                  >
-                    {/* Amber Number Marker */}
-                    <div className="shrink-0 w-8 h-8 rounded-full bg-[#F5A623]/20 border border-[#F5A623]/40 text-[#F5A623] flex items-center justify-center font-serif font-bold text-xs">
-                      {step.number}
-                    </div>
-                    <div>
-                      <h4 className="text-sm sm:text-base font-semibold text-white mb-1.5 font-serif">
-                        {step.title}
-                      </h4>
-                      <p className="text-xs sm:text-sm text-[#A0A0A5] leading-relaxed">
-                        {step.description}
-                      </p>
-                    </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
+              {steps.map((step) => (
+                <div
+                  key={step.number}
+                  className="flex items-start gap-4 p-4 rounded-xl bg-white/70 border border-tlb-border-light shadow-xs"
+                >
+                  <div className="shrink-0 w-8 h-8 rounded-full bg-tlb-amber text-tlb-surface flex items-center justify-center font-bold text-xs shadow-xs">
+                    {step.number}
                   </div>
-                ))}
-              </div>
+                  <div>
+                    <h4 className="text-sm sm:text-base font-semibold text-tlb-text-dark mb-1.5 font-serif">
+                      {step.title}
+                    </h4>
+                    <p className="text-xs sm:text-sm text-[#55555B] leading-relaxed">
+                      {step.description}
+                    </p>
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
-        ) : (
-          /* WARM IVORY EDITORIAL STYLE (Matches TLB "What We Do" section reference in image.png) */
-          <div className="bg-[#F8F4EC] text-[#191919] border border-[#E4DED3] rounded-2xl p-6 sm:p-10 mb-10 transition-all shadow-xl">
-            {/* Section 2 Heading */}
-            <div className="pb-6 border-b border-[#E4DED3]">
-              <span className="text-xs uppercase font-semibold tracking-[0.2em] text-[#C47D14] block mb-2">
-                ACCOUNT ASSISTANCE
-              </span>
-              <h2 className="font-serif text-2xl sm:text-3xl font-bold text-[#191919] mb-3">
-                Delete Your Account
-              </h2>
-              <p className="text-sm sm:text-base text-[#4A4A4F] leading-relaxed">
-                If you would like to delete your account and associated personal data from The Little Broadway app, you can submit a deletion request to our support team.
-              </p>
-            </div>
+        </div>
+      </section>
 
-            {/* Section 3: How to Request Deletion */}
-            <div className="pt-8">
-              <h3 className="text-xs uppercase font-semibold tracking-[0.18em] text-[#7A7A80] mb-6">
-                How to Submit a Deletion Request
-              </h3>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
-                {steps.map((step) => (
-                  <div
-                    key={step.number}
-                    className="flex items-start gap-4 p-4 rounded-xl bg-white/70 border border-[#E4DED3] transition-colors shadow-xs"
-                  >
-                    {/* Amber Circle Marker */}
-                    <div className="shrink-0 w-8 h-8 rounded-full bg-[#F5A623] text-[#111215] flex items-center justify-center font-bold text-xs shadow-xs">
-                      {step.number}
-                    </div>
-                    <div>
-                      <h4 className="text-sm sm:text-base font-semibold text-[#191919] mb-1.5 font-serif">
-                        {step.title}
-                      </h4>
-                      <p className="text-xs sm:text-sm text-[#55555B] leading-relaxed">
-                        {step.description}
-                      </p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* SECTION 4: Contact Support Area */}
-        <section className="bg-[#111215] border border-[#343434] rounded-2xl p-6 sm:p-8 mb-10 shadow-lg">
+      {/* BAND 3 (charcoal): Contact Support */}
+      <section className="bg-tlb-charcoal text-tlb-text-muted py-14 sm:py-16">
+        <div className={containerClass}>
           <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
             <div className="max-w-xl">
-              <span className="text-xs uppercase font-semibold tracking-[0.2em] text-[#F5A623] block mb-2">
+              <span className="text-xs uppercase font-semibold tracking-[0.2em] text-tlb-amber block mb-2">
                 DIRECT ASSISTANCE
               </span>
               <h2 className="font-serif text-2xl font-bold text-white mb-2">
@@ -238,9 +167,8 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate }) => {
                 Our support team is here to help you with your account deletion request.
               </p>
 
-              {/* Display: Email & Subject */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs">
-                <div className="p-3 rounded-lg bg-[#16171C] border border-[#2B2C32] flex items-center justify-between">
+                <div className="p-3 rounded-lg bg-tlb-charcoal-raised border border-tlb-charcoal-border flex items-center justify-between">
                   <div>
                     <span className="text-[10px] uppercase tracking-wider text-[#8E8E93] block">
                       Support Email
@@ -252,18 +180,18 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate }) => {
                   <button
                     type="button"
                     onClick={handleCopyEmail}
-                    className="p-1.5 rounded hover:bg-[#26272C] text-[#A0A0A5] hover:text-white transition-colors"
+                    className="p-1.5 rounded hover:bg-[#3A3A3F] text-[#A0A0A5] hover:text-white transition-colors"
                     title="Copy Email Address"
                   >
                     {copiedEmail ? (
-                      <Check className="w-3.5 h-3.5 text-[#F5A623]" />
+                      <Check className="w-3.5 h-3.5 text-tlb-amber" />
                     ) : (
                       <Copy className="w-3.5 h-3.5" />
                     )}
                   </button>
                 </div>
 
-                <div className="p-3 rounded-lg bg-[#16171C] border border-[#2B2C32]">
+                <div className="p-3 rounded-lg bg-tlb-charcoal-raised border border-tlb-charcoal-border">
                   <span className="text-[10px] uppercase tracking-wider text-[#8E8E93] block">
                     Required Subject Line
                   </span>
@@ -274,11 +202,10 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate }) => {
               </div>
             </div>
 
-            {/* Primary Action Buttons */}
             <div className="flex flex-col sm:flex-row lg:flex-col gap-3 shrink-0">
               <a
                 href={mailtoUrl}
-                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 text-xs font-semibold tracking-wider uppercase rounded-full bg-[#F5A623] text-[#111215] hover:bg-[#e5981a] active:scale-[0.98] transition-all shadow-md"
+                className="inline-flex items-center justify-center gap-2 px-7 py-3.5 text-xs font-semibold tracking-wider uppercase rounded-full bg-tlb-amber text-tlb-surface hover:bg-tlb-amber-hover active:scale-[0.98] transition-all shadow-md"
               >
                 <span>Contact Support</span>
                 <ArrowRight className="w-4 h-4" />
@@ -287,65 +214,65 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate }) => {
               <button
                 type="button"
                 onClick={() => setIsDraftModalOpen(true)}
-                className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 text-xs font-medium rounded-full bg-[#1A1B20] text-[#D0D0D0] hover:text-white hover:bg-[#25262E] border border-[#343434] transition-colors"
+                className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 text-xs font-medium rounded-full bg-tlb-charcoal-raised text-tlb-text-muted hover:text-white hover:bg-[#3A3A3F] border border-tlb-charcoal-border transition-colors"
               >
-                <Mail className="w-3.5 h-3.5 text-[#F5A623]" />
+                <Mail className="w-3.5 h-3.5 text-tlb-amber" />
                 <span>Preview Email Draft</span>
               </button>
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* SECTION 5: Data Deletion and Retention */}
-        <section className="bg-[#111215] border border-[#343434] rounded-2xl p-6 sm:p-8 mb-10 shadow-lg">
+      {/* BAND 4 (ivory): Data Deletion and Retention */}
+      <section className="bg-tlb-ivory text-tlb-text-dark py-14 sm:py-16">
+        <div className={containerClass}>
           <div className="mb-6">
-            <span className="text-xs uppercase font-semibold tracking-[0.2em] text-[#F5A623] block mb-2">
+            <span className="text-xs uppercase font-semibold tracking-[0.2em] text-[#C47D14] block mb-2">
               TRANSPARENCY &amp; POLICIES
             </span>
-            <h2 className="font-serif text-2xl font-bold text-white mb-2">
+            <h2 className="font-serif text-2xl font-bold text-tlb-text-dark mb-2">
               What Happens to Your Data?
             </h2>
-            <p className="text-xs sm:text-sm text-[#8E8E93]">
+            <p className="text-xs sm:text-sm text-[#55555B]">
               Understand how data associated with The Little Broadway app is handled upon an account deletion request.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6 border-b border-[#26272C]">
-            {/* Data We Delete */}
-            <div className="p-5 rounded-xl bg-[#16171C] border border-[#2B2C32]">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 pb-6 border-b border-tlb-border-light">
+            <div className="p-5 rounded-xl bg-white/70 border border-tlb-border-light shadow-xs">
               <div className="flex items-center gap-2 mb-3">
-                <ShieldCheck className="w-4 h-4 text-[#F5A623]" />
-                <h3 className="font-serif font-bold text-base text-white">
+                <ShieldCheck className="w-4 h-4 text-[#C47D14]" />
+                <h3 className="font-serif font-bold text-base text-tlb-text-dark">
                   Data We Delete
                 </h3>
               </div>
-              <ul className="space-y-2.5 text-xs sm:text-sm text-[#B8B8BD]">
+              <ul className="space-y-2.5 text-xs sm:text-sm text-[#4A4A4F]">
                 <li className="flex items-start gap-2">
-                  <span className="text-[#F5A623] font-bold">·</span>
+                  <span className="text-[#C47D14] font-bold">·</span>
                   <span>Account information.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#F5A623] font-bold">·</span>
+                  <span className="text-[#C47D14] font-bold">·</span>
                   <span>Profile information.</span>
                 </li>
                 <li className="flex items-start gap-2">
-                  <span className="text-[#F5A623] font-bold">·</span>
+                  <span className="text-[#C47D14] font-bold">·</span>
                   <span>Other applicable personal data associated with the account.</span>
                 </li>
               </ul>
             </div>
 
-            {/* Data We May Retain */}
-            <div className="p-5 rounded-xl bg-[#16171C] border border-[#2B2C32]">
+            <div className="p-5 rounded-xl bg-white/70 border border-tlb-border-light shadow-xs">
               <div className="flex items-center gap-2 mb-3">
-                <Clock className="w-4 h-4 text-[#A0A0A5]" />
-                <h3 className="font-serif font-bold text-base text-white">
+                <Clock className="w-4 h-4 text-[#7A7A80]" />
+                <h3 className="font-serif font-bold text-base text-tlb-text-dark">
                   Data We May Retain
                 </h3>
               </div>
-              <ul className="space-y-2.5 text-xs sm:text-sm text-[#B8B8BD]">
+              <ul className="space-y-2.5 text-xs sm:text-sm text-[#4A4A4F]">
                 <li className="flex items-start gap-2">
-                  <span className="text-[#A0A0A5] font-bold">·</span>
+                  <span className="text-[#7A7A80] font-bold">·</span>
                   <span>
                     Information that must be retained to satisfy applicable legal, regulatory, security, or legitimate record-keeping obligations.
                   </span>
@@ -354,21 +281,22 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate }) => {
             </div>
           </div>
 
-          {/* Clarification & Policy Disclaimers */}
-          <div className="pt-5 space-y-2 text-xs text-[#8E8E93] leading-relaxed">
+          <div className="pt-5 space-y-2 text-xs text-[#55555B] leading-relaxed">
             <p>
               &ldquo;Any data retained will be handled in accordance with applicable legal requirements and the relevant privacy policy.&rdquo;
             </p>
-            <p className="text-[11px] text-[#6C6C72]">
+            <p className="text-[11px] text-[#7A7A80]">
               *Note: These are prototype placeholders for client and compliance review. Actual application data-handling practices will be confirmed with the legal team prior to production deployment.
             </p>
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* SECTION 6: Privacy Policy & Dedicated URL Section */}
-        <section className="p-6 rounded-2xl bg-[#141519] border border-[#2A2B31] flex flex-col sm:flex-row items-center justify-between gap-4">
+      {/* BAND 5 (charcoal): Privacy Policy & Dedicated URL */}
+      <section className="bg-tlb-charcoal text-tlb-text-muted py-10">
+        <div className={`${containerClass} flex flex-col sm:flex-row items-center justify-between gap-4`}>
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-full bg-[#1F2026] text-[#F5A623] flex items-center justify-center shrink-0">
+            <div className="w-9 h-9 rounded-full bg-tlb-charcoal-raised text-tlb-amber flex items-center justify-center shrink-0">
               <FileText className="w-4 h-4" />
             </div>
             <div>
@@ -393,17 +321,15 @@ export const SupportPage: React.FC<SupportPageProps> = ({ onNavigate }) => {
               href="https://thelittlebroadway.com/privacy-policy"
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-1.5 text-xs font-semibold text-[#F5A623] hover:underline"
+              className="inline-flex items-center gap-1.5 text-xs font-semibold text-tlb-amber hover:underline"
             >
               <span>Read our Privacy Policy</span>
               <ArrowUpRight className="w-3.5 h-3.5" />
             </a>
           </div>
-        </section>
+        </div>
+      </section>
 
-      </div>
-
-      {/* Email Draft Preview Modal */}
       <EmailDraftModal
         isOpen={isDraftModalOpen}
         onClose={() => setIsDraftModalOpen(false)}

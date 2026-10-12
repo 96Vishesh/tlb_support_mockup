@@ -8,7 +8,7 @@ interface PrototypeBarProps {
 
 export const PrototypeBar: React.FC<PrototypeBarProps> = ({ currentPath, onNavigate }) => {
   return (
-    <aside aria-label="Client review prototype switcher" className="bg-[#0A0B0D] border-b border-[#25262B] text-xs text-[#8E8E93] py-2 px-4 transition-colors">
+    <aside aria-label="Client review prototype switcher" className="bg-black border-b border-[#25262B] text-xs text-[#8E8E93] py-2 px-4 transition-colors">
       <div className="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
         {/* Prototype Label */}
         <div className="flex items-center gap-2">
